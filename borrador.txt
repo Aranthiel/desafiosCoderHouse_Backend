@@ -1,0 +1,17 @@
+async deleteProduct(productId){
+    const product = await this.getProductById(productId);
+    if (!product) {
+        const errorMessage = `El producto con ID ${productId} no existe y no se puede eliminar.`;
+        console.log(errorMessage);
+        return errorMessage;
+    }
+
+    try {
+        const products = await this.getProducts();
+        const productsNew = products.filter(prod => prod.id !== productId);
+        await fs.promises.writeFile(this.path, JSON.stringify(productsNew));
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+};
