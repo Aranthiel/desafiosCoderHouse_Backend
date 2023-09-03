@@ -8,22 +8,24 @@ class ProductManager{
     /* Debe contar con un metodo addProduct el cual agregará un producto al arreglo de productos inicial */
     addProduct(title, description, price, thumbnail, code, stock){
         /* Validar que no se repita el campo code y que todos los campos sean obligatorios */
-        if (this.products.find(e=>e.code===code)){
-            console.log(`El código de producto ${code} ya existe y no se puede utilizar`);
-            return;
-        } else {
-            /*Cada producto que gestione debe contar con las propiedades title, description, price, thumbnail, code, stock*/
-            const product ={
-                id: this.products.length+1, 
-                title,
-                description,
-                price,
-                thumbnail,
-                code,
-                stock,
+        if(title && description && price && thumbnail && code && stock){
+            if (this.products.find(e=>e.code===code)){
+                console.log(`El código de producto ${code} ya existe y no se puede utilizar`);
+                return;
+            } else {
+                /*Cada producto que gestione debe contar con las propiedades title, description, price, thumbnail, code, stock*/
+                const product ={
+                    id: this.products.length+1, 
+                    title,
+                    description,
+                    price,
+                    thumbnail,
+                    code,
+                    stock,
+                }
+                this.products.push(product);
             }
-            this.products.push(product);
-        } 
+        }
     };
 
     /* Debe contar con un metodo getProducts el cual debe devolver el arreglo con todos los productos creados hasta el momento */
