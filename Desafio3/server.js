@@ -92,7 +92,7 @@ app.delete('/products/:productId', async (req , res) =>{
     const {productId}=req.params;
     try {
         const response = await productManagerN.deleteProduct(+productId)
-        if (response) {
+        if (response===true) {
             res.status(200).json({ message: 'Producto eliminado con éxito' });
         } else {
             res.status(404).json({ message: 'No se encontró el producto con el ID proporcionado' });

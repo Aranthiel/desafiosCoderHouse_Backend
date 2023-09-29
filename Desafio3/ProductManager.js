@@ -121,7 +121,8 @@ export class ProductManager{
         try {
             const products = await this.getProducts()
             const productsNew = products.filter(prod=>prod.id!==productId)
-            await fs.promises.writeFile(this.path,JSON.stringify(productsNew))
+            await fs.promises.writeFile(this.path,JSON.stringify(productsNew));
+            return true;
         } catch (error) {
             return error;    
         }
