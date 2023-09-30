@@ -1,5 +1,6 @@
 import express from 'express';
 import { engine } from "express-handlebars";
+
 //import exphbs from 'express-handlebars';
 import viewsRouter from './routes/views.router.js';
 import { __dirname } from './utils.js';
@@ -22,7 +23,7 @@ app.set("view engine", "handlebars");
 
 app.use("/", viewsRouter);
 
-const PORT =8080;
+const PORT =8081;
 app.listen(PORT, ()=>{
     console.log(`Escuchando al puerto ${PORT}`);
 });
