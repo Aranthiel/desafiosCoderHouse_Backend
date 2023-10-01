@@ -11,4 +11,12 @@ router.get('/', (req, res)=>{
 
 }); 
 
+//endpopint GET para obtener TODOS LOS PRODUCTOS
+router.get('/realtimeproducts', (req, res)=>{
+    res.render("realtimeproducts");
+    //res.render("chat");
+
+}); 
+
+
 export default router;

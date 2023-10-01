@@ -6,6 +6,11 @@ import viewsRouter from './routes/views.router.js';
 import { __dirname } from './utils.js';
 import path from 'path';
 
+
+
+
+
+
 const app=express();
 
 
@@ -21,7 +26,7 @@ app.engine("handlebars", engine());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "handlebars");
 
-app.use("/", viewsRouter);
+
 
 const PORT =8081;
 app.listen(PORT, ()=>{
