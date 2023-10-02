@@ -170,5 +170,35 @@
     "category": "Eelectrodomèsticos",
     "limit": 30,
     "id": 22
+  },
+  {
+    "title": "manzana verde",
+    "code": "mv1245",
+    "price": 15,
+    "status": true,
+    "stock": 1000,
+    "category": "alimentos",
+    "limit": 30,
+    "id": 23
+  },
+  {
+    "title": "Peras amarillas",
+    "code": "pa1234",
+    "price": 1,
+    "status": true,
+    "stock": 35,
+    "category": "añimentos",
+    "limit": 30,
+    "id": 24
+  },
+  {
+    "title": "Cartuchera celeste",
+    "code": "cc351",
+    "price": 3300,
+    "status": true,
+    "stock": 25,
+    "category": "Libreria",
+    "limit": 30,
+    "id": 25
   }
 ]
