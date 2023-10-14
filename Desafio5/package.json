@@ -6,8 +6,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node src/server.js",   
-    "run": "nodemon src/server.js"
-    
+    "run": "nodemon src/server.js", 
+    "test": "nodemon server.js"    
   },
   "repository": {
     "type": "git",
