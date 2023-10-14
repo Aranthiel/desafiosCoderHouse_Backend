@@ -5,8 +5,9 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon src/server.js",
-    "run": "nodemon server.js"
+    "start": "node src/server.js",   
+    "run": "nodemon src/server.js"
+    
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,8 @@
     "express-handlebars": "^7.1.2",
     "handlebars": "^4.7.8",
     "socket.io": "^4.7.2"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }

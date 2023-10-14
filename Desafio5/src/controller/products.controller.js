@@ -1,4 +1,4 @@
-import { productsManager } from '../services/products.manager.js';
+import { productsManager } from '../services/productsFS.manager.js';
 import { completeProductValidator } from "../validator/products.validators.js";
 
 

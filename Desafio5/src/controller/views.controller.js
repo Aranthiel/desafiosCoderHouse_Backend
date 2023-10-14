@@ -1,4 +1,4 @@
-import { productsManager } from '../services/products.manager.js';
+import { productsManager } from '../services/productsFS.manager.js';
 
 
 async function getHomeProductsC (req, res)  {
@@ -11,7 +11,8 @@ async function getHomeProductsC (req, res)  {
             res.status(404).json({ success: false, message: 'No se encontraron productos'})
         } else {
             //res.status(200).render("home", {products});
-            res.render("home", {products})
+            //res.render("home", {products});
+            res.render("chat");
         }
         
     } catch (error) {

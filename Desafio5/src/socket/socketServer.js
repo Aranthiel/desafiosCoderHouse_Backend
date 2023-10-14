@@ -10,10 +10,22 @@ let socketServer;
 export function initializeSocket(server) {
     socketServer = new Server(server)
 
+    const names =[];
+    const messages=[];
+
     // connection - disconnect
 // eventos predeterminados de socket.io  
 socketServer.on("connection", async (socket) =>{
     console.log (`se ha conectado el cliente ${socket.id}`);
+
+    socket.on("newChatUser", (user)=>{
+        socket.broadcast.emit('newChatUserBroadcast', user)
+    });
+    socket.on("newChatMessage", (info)=>{
+        messages.push(info);
+        socketServer.emit('chatMessages', messages);
+    })
+
     // Crea un objeto req simulado con la propiedad query
     const simulatedReq = {
         query: { limit: 30 } // Establece el límite en 30

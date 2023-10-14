@@ -99,17 +99,6 @@
     "id": 12
   },
   {
-    "title": "producto prueba 14",
-    "description": "Este es otro producto prueba 14",
-    "price": 270,
-    "status": true,
-    "category": "TBD",
-    "thumbnail": "Sin imagen 14",
-    "code": "ghi123",
-    "stock": 28,
-    "id": 13
-  },
-  {
     "title": "producto prueba 15",
     "description": "Este es otro producto prueba 15",
     "price": 420,
