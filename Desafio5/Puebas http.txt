@@ -1,0 +1,22 @@
+GET http://localhost:8080/api/products/ --> funciona OK
+
+GET http://localhost:8080/api/products?limit=7 --> funciona OK
+
+GET http://localhost:8080/api/products/652b1a820fc46ca9eb35804a --> funciona OK
+
+PUT http://localhost:8080/api/products/652b1a820fc46ca9eb35804a --> funciona OK si hago un get del producto aparece modificado, pero en la respuesta de thunder se queda pensando
+body:
+{
+"title": "Titulo cambiado con update",
+"category": "categoria updated"
+}
+
+PUT http://localhost:8080/api/products/652b19dd0fc46ca9eb358042 --> funciona OK si hago un get del producto aparece modificado, pero en la respuesta de thunder se queda pensando
+body:
+{
+"title": "Titulo pp1 cambiado con update",
+"category": "updated",
+"stock": 1005
+}
+
+DELETE http://localhost:8080/api/products/652b19dd0fc46ca9eb358042 -->

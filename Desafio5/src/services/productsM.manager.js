@@ -1,47 +1,21 @@
-import fs from 'fs';
-import { writeDataToFile } from './utilsManagers.js';
+import { productModel } from '../db/models/products.model.js';
 
-export class ProductsManager{
-    /*Debe crearse desde su contructor con el elemento products, el cual será un arreglo vacío */
 
-    constructor(path){ 
-        /* la clase debe contar con una varuiable this.path el cual se inicializara desde el contructor y debe recibir la ruta a trabajar desde el momento de generar su instancia*/
-        this.path=path;       
-        this.products=[]
+export class ProductsManagerMongoose{   
+
+    async mongooseGetProducts(limit) {
+        limit ? limit : 15;
+        const productsList = await productModel.find().limit(limit);
+        return productsList;
     }
-
-    /* Debe contar con un metodo getProducts el cual debe devolver un arreglo vacio o el arreglo con todos los productos creados hasta el momento */
-    async getProducts(limit) {
+        
+    async mongooseGetProductById(pid){
         try {
-            if (fs.existsSync(this.path)) {
-                const info = await fs.promises.readFile(this.path, 'utf-8');
-                this.products = JSON.parse(info);
-    
-                // Aplicar el límite si se proporciona
-                if (limit !== undefined && limit > 0) {
-                    this.products = this.products.slice(0, limit); // Corregir aquí
-                }
-    
-                return this.products;
-            } else {
-                return this.products;
-            }
-        } catch (error) {
-            return error;
-        }
-    }
-    
-
-    /* Debe contar con un metodo getProductById el cual debe buscar en el arreglo el producto que coincida con el id */
-    async getProductById(productId){
-        try {
-            this.products = await this.getProducts();
-            const product = this.products.find(product => product.id === productId);
-            console.log(`producto en product manager: ${product}`)
+            const product = await productModel.findById(pid);            
             
             if(!product){
                 //return `ERROR:NOT FOUND. El producto ${productId} NO se encuentra en el listado de productos, por favor ingrese un producto válido`;
-                console.log(`ERROR:NOT FOUND. El producto ${productId} NO se encuentra en el listado de productos, por favor ingrese un producto válido`);
+                console.log(`ERROR:NOT FOUND. El producto ${pid} NO se encuentra en el listado de productos, por favor ingrese un producto válido`);
                 return null; // Devuelve null en lugar de una cadena de error
         
             } else {
@@ -51,63 +25,29 @@ export class ProductsManager{
         } catch (error) {
             return error
         }
-    };
+    };    
     
-    /* Debe tener un método addProduct que debe recibir un objeto con el formato previamente especificado y asignarle un id autoincrementable y guardarlo en un arreglo*/
-    async addProduct(obj){
+    async mongooseAddProduct(obj){
         try {
-            this.products= await this.getProducts();            
-            
-            // Validar que no se repita el campo code
-            if (this.products.find(e => e.code === obj.code)) {
-                console.log(`El código de producto ${obj.code} ya existe y no se puede utilizar`);
-                return;
-            }
-
-            // Asignar un ID autoincremental al producto
-            if (!this.products.length) {
-                // Si el arreglo de productos está vacío, asigna el ID 1
-                obj.id = 1;
-            } else {
-                obj.id = this.products[this.products.length-1].id+1;
-            }
-
-            // Agregar el producto al arreglo
-            this.products.push(obj);
-            await writeDataToFile(this.path, this.products);
+            const newProduct= await productModel.create(obj);  // zoom  1:20hs ver video desde ahi          
+            return newProduct;
         } catch (error) {
             return error
         }
     };
     
-    async updateProduct(productId, newValue){
+    async mongooseUpdateProduct(pid, obj){
+        console.log("Antes de la actualización: ID del producto =", pid);
+        console.log("Datos de actualización =", obj);
+
         try {
             // Buscar el producto a actualizar por su ID
-            let product = await this.getProductById(productId);
+            let product = await productModel.updateOne({ _id: pid },obj);
 
             if (!product) {
                 // Producto no encontrado, devuelve null
                 return null;
             }
-            
-            //actualiza el producto agregando o sobreescribiendo los nuevos valores, y sobreescribe el id para verificar que sea el mismo que se solicitó
-            product = { ...product, ...newValue, id: productId};
-            
-            //Recuperar el arreglo de productos
-            const products = await this.getProducts();
-    
-            // Encontrar el índice del producto en el arreglo
-            const productIndex = products.findIndex(p => p.id === productId);    
-            // console.log('Índice del producto a actualizar:', productIndex);
-    
-            // Crear un nuevo array con el producto actualizado usando map
-            const productsNew = products.map((p, index) => {
-                return index === productIndex ? product:  p;
-            });
-    
-            // Sobreescribir el archivo .json 
-            await writeDataToFile(this.path, productsNew);
-
             // Retorna el producto actualizado
             return product;
     
@@ -115,27 +55,12 @@ export class ProductsManager{
             return error;
         }
     };
-    
-    
-    async deleteProduct(productId){
-        try {
-            // Verifica la existencia del producto
-            const product = await this.getProductById(productId);
-
-            // devuelve false si el producto no existe
-            if (!product){
-                return false
-            } 
-            
-            const products = await this.getProducts()
-            const productsNew = products.filter(prod=>prod.id!==productId)
-            await writeDataToFile(this.path, productsNew);
-            return true;
-        } catch (error) {
-            return error;    
-        }
+        
+    async mongooseDeleteProduct(pid){
+            const product = await productModel.findByIdAndDelete(pid);
+            return product;
     };
 };
 
-export const productsManager= new ProductsManager('productos.json');
+export const productsManagerMongoose= new ProductsManagerMongoose('productos.json');
 

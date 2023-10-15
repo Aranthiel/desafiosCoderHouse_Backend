@@ -127,7 +127,6 @@
     "status": true,
     "stock": 30,
     "category": "Eelectrodomèsticos",
-    "limit": 30,
     "id": 18
   },
   {
@@ -137,7 +136,6 @@
     "status": true,
     "stock": 3,
     "category": "ppb",
-    "limit": 30,
     "id": 19
   },
   {
@@ -147,7 +145,6 @@
     "status": true,
     "stock": 3,
     "category": "ppb",
-    "limit": 30,
     "id": 21
   },
   {
@@ -157,7 +154,6 @@
     "status": true,
     "stock": 30,
     "category": "Eelectrodomèsticos",
-    "limit": 30,
     "id": 22
   },
   {
@@ -167,7 +163,6 @@
     "status": true,
     "stock": 1000,
     "category": "alimentos",
-    "limit": 30,
     "id": 23
   },
   {
@@ -177,7 +172,6 @@
     "status": true,
     "stock": 35,
     "category": "añimentos",
-    "limit": 30,
     "id": 24
   },
   {
@@ -187,7 +181,15 @@
     "status": true,
     "stock": 25,
     "category": "Libreria",
-    "limit": 30,
     "id": 25
+  },
+  {
+    "title": "Espatula de Silicona",
+    "code": "ES20100",
+    "price": 150,
+    "status": true,
+    "stock": 1500,
+    "category": "Bazar",
+    "id": 26
   }
 ]

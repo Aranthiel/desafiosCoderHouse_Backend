@@ -2,6 +2,9 @@
 import express from 'express';
 import apiRouter from './routes/api.routes.js';
 
+//mongoose
+import "./db/config.js";
+
 //handlebars'
 import { engine } from "express-handlebars";
 import viewsRouter from './routes/views.routes.js';
