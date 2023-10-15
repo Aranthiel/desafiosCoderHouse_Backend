@@ -24,10 +24,10 @@ class CartManagerMongoose{
     };
 
 
-    async mongooseUpdateCart(cid, obj){
-        const response = await cartModel.updateOne({ _id: cid }, { obj });  
+    async mongooseUpdateCart(cid, obj) {
+        const response = await cartModel.updateOne({ _id: cid }, { $set: obj });
         return response;
-    };   
+    };
     
     async mongooseDeleteCart(cid){
         const response = await cartModel.findByIdAndDelete(cid);
