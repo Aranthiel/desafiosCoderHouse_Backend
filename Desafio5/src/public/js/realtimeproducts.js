@@ -47,46 +47,63 @@ form.addEventListener("submit", (event) => {
     form.reset();
 });
 
+//renderizar los productos en el DOM
+function renderProducts(productos) {
+    const ul = document.createElement("ul");
+    
+    productos.forEach((producto) => {
+        const li = document.createElement("li");
+        li.id = `product_${producto._id}`;
+        
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.id = `checkbox_${producto._id}`;
+        li.appendChild(checkbox);
+    
+        const productInfo = document.createElement("span");
+        productInfo.textContent = `Título: ${producto.title}, Precio: ${producto.price}, ID: ${producto._id}`;
+        li.appendChild(productInfo);
+    
+        ul.appendChild(li);
+    });
+
+    div.innerHTML = "";
+    div.appendChild(title);
+    div.appendChild(ul);
+    div.appendChild(deleteButton);
+}
+
 // Escuchar el evento para recibir los productos iniciales
 socketClient.on("productosIniciales", (productosIniciales) => {
     console.log('productosIniciales en realtimeproducts.js', productosIniciales);
     productos = productosIniciales;
-    // Crear una lista desordenada (<ul>) para los productos
-    const ul = document.createElement("ul");
-        
-    // Iterar a través de los productos y crear elementos de lista (<li>)
-    productos.forEach((producto) => {
-        const li = document.createElement("li");
-        li.id = `product_${producto.id}`; // Asignar el id del producto al elemento li
+    renderProducts(productos);
+});
 
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.id = `checkbox_${producto.id}`; // Asignar un id único al checkbox
-        li.appendChild(checkbox);
+socketClient.on("productsUpdated", (productosActualizados) => {
+    productos = productosActualizados;
+    renderProducts(productos);
+});
     
-        const productInfo = document.createElement("span");
-        productInfo.textContent = `Título: ${producto.title}, Precio: ${producto.price}`;
-        li.appendChild(productInfo);
-    
-        ul.appendChild(li); // Agregar el elemento de lista a la lista desordenada
+// Agregar lógica para eliminar productos
+deleteButton.addEventListener("click", () => {
+    const selectedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    const selectedProductIds = Array.from(selectedCheckboxes).map((checkbox) => {
+        return checkbox.id.replace("checkbox_", "");
     });
 
-    // Limpiar el div y agregar la lista de productos iniciales
-    div.innerHTML = "";
-    div.appendChild(title);
-    div.appendChild(ul); 
-    div.appendChild(deleteButton);
+    const confirmation = Swal.fire({
+        title: '¿Quieres borrar esto?',
+        text: `Ha seleccionado ${selectedProductIds.length} productos para eliminar`, 
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar'
+    });
 
-    // Agregar lógica para eliminar productos
-    deleteButton.addEventListener("click", () => {
-        const selectedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-        const selectedProductIds = Array.from(selectedCheckboxes).map((checkbox) => {
-            return checkbox.id.replace("checkbox_", "");
-        });
-
-        const confirmation = window.confirm(`¿Ha seleccionado ${selectedProductIds.length} productos. ¿Está seguro que desea eliminarlos?`);
-
-        if (confirmation) {
+    confirmation.then((result) => {
+        if (result.isConfirmed) {
             // Emitir el evento "borrar" con los IDs de los productos seleccionados
             console.log('Enviando evento "borrar" con los siguientes datos:', selectedProductIds);
             socketClient.emit("borrar", selectedProductIds);
@@ -98,21 +115,3 @@ socketClient.on("productosIniciales", (productosIniciales) => {
         }
     });
 });
-
-/* Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
-    }
-  }) */
