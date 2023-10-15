@@ -5,7 +5,7 @@ const chatSchema = new Schema({
         type: String,
         required:true
     },
-    messaje:{
+    message:{
         type: String,
         required:true
     }
@@ -13,4 +13,5 @@ const chatSchema = new Schema({
 
 
 //crear modelo
-export const cartModel = model('Chat', chatSchema);
+export const chatModel = model('Chat', chatSchema);
+

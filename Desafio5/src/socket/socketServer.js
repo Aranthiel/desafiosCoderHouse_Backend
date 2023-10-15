@@ -4,7 +4,8 @@ import { getAllProductsC,
     getProductByIdC,
     addProductC,
     updateProductC,
-    deleteProductC,} from '../controller/products.controller.js'
+    deleteProductC,} from '../controller/products.controller.js';
+import { chatModel } from "../db/models/chat.model.js";
 
 let socketServer;
 export function initializeSocket(server) {
@@ -21,10 +22,29 @@ socketServer.on("connection", async (socket) =>{
     socket.on("newChatUser", (user)=>{
         socket.broadcast.emit('newChatUserBroadcast', user)
     });
-    socket.on("newChatMessage", (info)=>{
-        messages.push(info);
-        socketServer.emit('chatMessages', messages);
-    })
+    
+    socket.on("newChatMessage", (info) => {
+        console.log('Mensaje recibido:', info);
+        
+        const newMessage = new chatModel({
+            name: info.name,
+            message: info.message
+        });
+    
+        console.log('Nuevo mensaje a guardar:', newMessage);
+    
+        newMessage
+            .save()
+            .then(savedMessage => {
+                console.log('Mensaje guardado con éxito. ID:', savedMessage._id);
+                messages.push(info);
+                socketServer.emit('chatMessages', messages);
+            })
+            .catch(error => {
+                console.error('Error al guardar el mensaje:', error);
+            });
+    });
+    
 
     // Crea un objeto req simulado con la propiedad query
     const simulatedReq = {
