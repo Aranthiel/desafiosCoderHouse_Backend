@@ -1,5 +1,4 @@
 import { cartModel } from '../db/models/cart.model.js';
-import { writeDataToFile } from './utilsManagers.js';
 
 class CartManagerMongoose{
     

@@ -1,11 +1,18 @@
-import {Schema, model} from "mongoose";
-//crear esquema
+import { Schema, model } from "mongoose";
+
+// Crear esquema
 const cartSchema = new Schema({
-    products:{
-        type: Array
-    },
+    products: [
+        {
+            productoId: {
+                type: Schema.Types.ObjectId,
+                ref: 'Productos', // Nombre de la colección a la que haces referencia
+            },
+            quantity: Number,
+        },
+    ],
 });
 
 
-//crear modelo
+// Crear modelo
 export const cartModel = model('Carritos', cartSchema);

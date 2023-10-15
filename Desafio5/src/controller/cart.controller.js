@@ -1,9 +1,5 @@
 import { cartManagerMongoose } from "../services/cartM.manager.js";
 
-// este archivo no está
-
-
-
 async function getCartByIdC(req, res){
     const {cid}=req.params;
     console.log(`Tipo de productId en routes: ${typeof cid}, Valor de productId: ${cid}`);
@@ -21,50 +17,54 @@ async function getCartByIdC(req, res){
 }; 
 
 
-async function addCartC(req, res){
-    
+async function addCartC(req, res) {
     try {
-        const {products} = req.body;
-        console.log(products);
-        if (products.length){
-            const nuevoCarrito= await cartManagerMongoose.mongooseAddCart(products);
-            res.status(201).json({message: `Carrito creado con exito con id: ${nuevoCarrito.id}`, nuevoCarrito})
-        } else { 
-            res.status(400).json({message:'Carrito vacìo'})
+        const { products } = req.body;
+        if (products && Array.isArray(products)) {
+            const nuevoCarrito = await cartManagerMongoose.mongooseAddCart({ products: products });
+            res.status(201).json({ message: `Carrito creado con éxito con id: ${nuevoCarrito._id}`, nuevoCarrito });
+        } else {
+            res.status(400).json({ message: 'Carrito vacío o datos incorrectos' });
         }
-        
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}; 
+}
 
 
-async function addProductToCartC(req, res){
-    
+
+async function addProductToCartC(req, res) {
     const { cid, pid } = req.params;
-    console.log(` en routes cartId:${cid} productId: ${pid}`);
-    const { quantity } = req.body; 
-    if (typeof quantity !== 'number' || isNaN(quantity)) {
-        quantity = 1;       
-    }
-
-    const obj = {
-        pid: pid,
-        quantity: quantity
-    }
+    console.log(`En routes: cartId: ${cid}, productId: ${pid}`);
+    const { quantity } = req.body;
 
     try {
-        const updatedCart = await cartManagerMongoose.mongooseUpdateCart(+cid, obj);
-        if(updatedCart){
+        // Obtén el carrito existente por su ID
+        const existingCart = await cartManagerMongoose.mongooseGetCartById(cid);
+
+        if (existingCart) {
+            // Verifica si el producto ya está en el carrito
+            const existingProduct = existingCart.products.find((product) => product.productoId.toString() === pid);
+
+            if (existingProduct) {
+                // Si el producto ya existe en el carrito, actualiza la cantidad
+                existingProduct.cantidad += quantity;
+            } else {
+                // Si el producto no está en el carrito, agrégalo con la cantidad
+                existingCart.products.push({ productoId: pid, cantidad: quantity });
+            }
+
+            // Guarda el carrito actualizado
+            const updatedCart = await cartManagerMongoose.mongooseUpdateCart(cid, existingCart);
+
             res.status(200).json({ message: 'Producto agregado al carrito con éxito', updatedCart });
         } else {
-            res.status(400).json({message:`No se encontro el carrito con el id ${cid}`})
+            res.status(404).json({ message: `No se encontró el carrito con el ID ${cid}` });
         }
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-
-}; 
+}
 
 
 export {
