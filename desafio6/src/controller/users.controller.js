@@ -43,7 +43,7 @@ async function findUserByEmailC(req, res){
         if (email === "adminCoder@coder.com" && password === "Cod3r123") {
             req.session["isAdmin"] = true;
         }
-        res.status(200).redirect("/realtimeproducts");
+        res.status(200).redirect("/productsFS");
         
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });

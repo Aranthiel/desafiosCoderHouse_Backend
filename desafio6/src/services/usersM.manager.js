@@ -13,6 +13,7 @@ class UserManagerMongoose {
         return response;
     }
     
+    // 29/10/2023 15.30 funciona OK, no tocar
     async createUser(obj) {
         console.log('ejecutando createUser en usersM.manager.js');
         try {
