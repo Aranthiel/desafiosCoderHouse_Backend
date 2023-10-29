@@ -1,6 +1,7 @@
 import { cartManagerMongoose } from "../services/cartM.manager.js";
 
 async function getCartByIdC(req, res){
+    console.log('ejecutando getCartByIdC  en cart.controller.js')
     const {cid}=req.params;
     console.log(`Tipo de productId en routes: ${typeof cid}, Valor de productId: ${cid}`);
     
@@ -17,7 +18,8 @@ async function getCartByIdC(req, res){
 }; 
 
 
-async function addCartC(req, res) {
+async function addCartC(req, res){
+    console.log('ejecutando addCartC  en cart.controller.js')
     try {
         const { products } = req.body;
         if (products && Array.isArray(products)) {
@@ -32,7 +34,8 @@ async function addCartC(req, res) {
 }
 
 
-async function addProductToCartC(req, res) {
+async function addProductToCartC(req, res){
+    console.log('ejecutando addProductToCartC  en cart.controller.js')
     const { cid, pid } = req.params;
     const { quantity } = req.body;
     console.log(`En controller: cartId: ${cid}, productId: ${pid}, quantity: ${quantity}`);

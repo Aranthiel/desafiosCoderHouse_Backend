@@ -39,7 +39,9 @@ app.use(session({
     },
     store: new fileStore({
         path: __dirname + '/sessions',
-    })
+    }),    
+    resave: false, // Establece resave en false para evitar la advertencia
+    saveUninitialized: true, // Establece saveUninitialized en true para evitar la advertencia
 }))
 
 //handlebars

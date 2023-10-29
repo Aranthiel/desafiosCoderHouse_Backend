@@ -3,9 +3,9 @@ import { productsManagerMongoose } from '../services/productsM.manager.js';
 
 
 //funcion intermedia entre router y manager metodo GET para obtener TODOS LOS PRODUCTOS
-async function getAllProductsC(req, res) {
+async function getAllProductsC(req, res){
+    console.log('ejecutando getAllProductsC en products.controller.js')
     const limit = req.query.limit ? req.query.limit : undefined;
-    console.log(`Tipo de limit: ${typeof limit}, Valor: ${limit}`);
 
     try {
         const products = await productsManagerMongoose.mongooseGetProducts(limit);
@@ -22,8 +22,8 @@ async function getAllProductsC(req, res) {
 
 //funcion intermedia entre router y manager metodo GET para obtener un PRODUCTO POR SU ID
 async function getProductByIdC (req, res){
-    const {pid}=req.params;
-    console.log(`Tipo de productId en routes: ${typeof pid}, Valor de productId: ${pid}`);
+    console.log('ejecutando getProductByIdC en products.controller.js')
+    const {pid}=req.params;    
         
     try {        
         const productById = await productsManagerMongoose.mongooseGetProductById(pid);
@@ -39,37 +39,48 @@ async function getProductByIdC (req, res){
     }
 }; 
 
-
 //funcion intermedia entre router y manager metodo POST para APGREGAR PRODUCTO
-async function addProductC (product){
-    console.log(product)
-    const nuevoProducto=product
-    const productoAgregado = await productsManagerMongoose.mongooseAddProduct(nuevoProducto)
-    return {success: true, message: 'Producto agregado:', product: productoAgregado}
+async function addProductC (req, res){
+    console.log('ejecutando addProductC en products.controller.js')   
+    const nuevoProducto= req.body
+    console.log('nuevoProducto en products.controlles.js: ', nuevoProducto)
+    try {
+        const productoAgregado = await productsManagerMongoose.mongooseAddProduct(nuevoProducto);
+        if (productoAgregado){
+            res.status(200).json({success: true, message: 'Producto agregado:', productoAgregado});
+            return productoAgregado; 
+        } else {
+            res.status(404).json({ success: false, message: 'No se pudo agregar el producto solicitado'});
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+
+    
+    
 }; 
 
 //funcion intermedia entre router y manager metodo PUT para actualizar un producto por su ID
-async function updateProductC (req , res) {    
+async function updateProductC (req , res){
+    console.log('ejecutando updateProductC en products.controller.js')    
     const {pid}=req.params;
     const newValues= req.body;
     try {
-        const updatedProduct = await productsManagerMongoose.mongooseUpdateProduct(pid, newValues);
-        console.log(updatedProduct);
-        if(updatedProduct != null){
-            res.status(200).json({success: true, message: 'Producto actualizado:', updatedProduct});
-            return updatedProduct; 
+        const response = await productsManagerMongoose.mongooseUpdateProduct(pid, newValues);
+        console.log(response);
+        if(response != null){
+            res.status(200).json({success: true, message: 'Producto actualizado:', response});
         } else {
             res.status(404).json({ success: false, message: 'No se encontro el Id de producto solicitado'});
         }
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
-    
-    return updatedProduct;
 };
 
 //funcion intermedia entre router y manager metodo DELETE para eliminar un producto por su ID
-async function deleteProductC(req , res) {
+async function deleteProductC(req , res){
+    console.log('ejecutando deleteProductC en products.controller.js')
     const {pid}=req.params;
     try {
         const deletedProduct = await productsManagerMongoose.mongooseDeleteProduct(pid);

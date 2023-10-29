@@ -17,8 +17,7 @@ console.log('productos', productos);
 
 form.addEventListener("submit", (event) => {
     event.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
-    console.log("form submit")
-
+    
     // Obtener los valores del formulario
     const title = document.getElementById("title").value;
     const code = document.getElementById("code").value;
@@ -49,6 +48,7 @@ form.addEventListener("submit", (event) => {
 
 //renderizar los productos en el DOM
 function renderProducts(productos) {
+    console.log('productos para renderizar', productos )
     const ul = document.createElement("ul");
     
     productos.forEach((producto) => {
@@ -74,14 +74,15 @@ function renderProducts(productos) {
 }
 
 // Escuchar el evento para recibir los productos iniciales
-socketClient.on("productosIniciales", (productosIniciales) => {
+socketClient.on("productosInicialesRT", (productosIniciales) => {
     console.log('productosIniciales en realtimeproducts.js', productosIniciales);
-    productos = productosIniciales;
+    productos = productosIniciales.products;
     renderProducts(productos);
 });
 
 socketClient.on("productsUpdated", (productosActualizados) => {
-    productos = productosActualizados;
+    console.log('productsUpdated en realtimeproducts.js', productosActualizados);
+    productos = productosActualizados.products;
     renderProducts(productos);
 });
     

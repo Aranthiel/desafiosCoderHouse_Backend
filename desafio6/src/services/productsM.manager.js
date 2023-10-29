@@ -3,13 +3,15 @@ import { productModel } from '../db/models/products.model.js';
 
 export class ProductsManagerMongoose{   
 
-    async mongooseGetProducts(limit) {
+    async mongooseGetProducts(limit){
+        console.log('ejecutando mongooseGetProducts en productsM.manager.js')
         limit ? limit : 15;
         const productsList = await productModel.find().limit(limit);
         return productsList;
     }
         
     async mongooseGetProductById(pid){
+        console.log('ejecutando mongooseGetProductById en productsM.manager.js')
         try {
             const product = await productModel.findById(pid);            
             
@@ -28,6 +30,7 @@ export class ProductsManagerMongoose{
     };    
     
     async mongooseAddProduct(obj){
+        console.log('ejecutando mongooseAddProduct en productsM.manager.js')
         try {
             const newProduct= await productModel.create(obj);  // zoom  1:20hs ver video desde ahi          
             return newProduct;
@@ -37,14 +40,13 @@ export class ProductsManagerMongoose{
     };
     
     async mongooseUpdateProduct(pid, obj){
-        console.log("Antes de la actualización: ID del producto =", pid);
-        console.log("Datos de actualización =", obj);
-
+        console.log('ejecutando mongooseUpdateProduct en productsM.manager.js')        
         try {
             // Buscar el producto a actualizar por su ID
-            let product = await productModel.updateOne({ _id: pid },obj);
+            let response = await productModel.updateOne({ _id: pid },obj);
+            console.log( 'product en mongooseUpdateProduct', response)
 
-            if (!product) {
+            if (!response) {
                 // Producto no encontrado, devuelve null
                 return null;
             }
@@ -57,6 +59,7 @@ export class ProductsManagerMongoose{
     };
         
     async mongooseDeleteProduct(pid){
+        console.log('ejecutando mongooseDeleteProduct en productsM.manager.js')
             const product = await productModel.findByIdAndDelete(pid);
             return product;
     };
