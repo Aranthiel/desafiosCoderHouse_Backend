@@ -39,7 +39,7 @@ export function initializeSocket(server) {
         });
     });
 
-    // CHAT FUNCIONA OK
+    // CHAT funciona perfecto, no tocar 29/10/2023 2:00am
     async function handleChat(socket) {
         socket.on("newChatUser", (user) => {
             socket.broadcast.emit('newChatUserBroadcast', user);
@@ -68,7 +68,7 @@ export function initializeSocket(server) {
         });
     } 
 
-    // RealTimeProducts
+    // RealTimeProducts funciona perfecto, no tocar 29/10/2023 2:00am
     async function getAllProductsSocket() {
         try {
             const response = await fetch('http://localhost:8080/api/products/');

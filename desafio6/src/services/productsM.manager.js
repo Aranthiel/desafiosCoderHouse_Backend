@@ -1,6 +1,6 @@
 import { productModel } from '../db/models/products.model.js';
 
-
+//funciona perfecto, no tocar 29/10/2023 2:00am
 export class ProductsManagerMongoose{   
 
     async mongooseGetProducts(limit){
@@ -65,5 +65,4 @@ export class ProductsManagerMongoose{
     };
 };
 
-export const productsManagerMongoose= new ProductsManagerMongoose('productos.json');
-
+export const productsManagerMongoose= new ProductsManagerMongoose();//modificado despues de  29/10/2023 2:00am pero funciona

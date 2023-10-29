@@ -1,6 +1,6 @@
 import { productsManagerMongoose } from '../services/productsM.manager.js';
 
-
+//funciona perfecto, no tocar 29/10/2023 2:00am
 
 //funcion intermedia entre router y manager metodo GET para obtener TODOS LOS PRODUCTOS
 async function getAllProductsC(req, res){

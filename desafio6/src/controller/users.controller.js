@@ -1,7 +1,8 @@
 import { userManagerMongoose } from '../services/usersM.manager.js';
 //getUserById, findUserByEmail, createUser
 
-async function getUserByIdC (req, res) {
+async function getUserByIdC (req, res){
+    console.log('ejecutando getUserByIdC desde users.controller.js')
     const {uid}= req.params;
     try {
         const userById = await userManagerMongoose.getUserById(uid);
@@ -20,6 +21,7 @@ async function getUserByIdC (req, res) {
 
 
 async function getAllUsersC (req, res){
+    console.log('ejecutando getAllUsersC desde users.controller.js')
     try {
         
     } catch (error) {
@@ -29,6 +31,7 @@ async function getAllUsersC (req, res){
 
 
 async function findUserByEmailC(req, res){
+    console.log('ejecutando findUserByEmailC desde users.controller.js')
     const {email, password} = req.body
     try {
         const userByEmail = await userManagerMongoose.findUserByEmail(email);
@@ -47,12 +50,16 @@ async function findUserByEmailC(req, res){
     }
 };
 
-async function createUserC (req, res){    
+async function createUserC (req, res){
+    console.log('ejecutando createUserC desde users.controller.js') 
+    console.log('Datos del formulario:', req.body);  
     try {
-        const newUser = await userManagerMongoose.createUserC(req.body);
+        const newUser = await userManagerMongoose.createUser(req.body);
+        console.log('newUser', newUser)
         return res.status(200).json({message: "Nuevo usuario creado", newUser})
         
     } catch (error) {
+        console.error('Error al crear un nuevo usuario:', error);
         res.status(500).json({ success: false, message: error.message });
     }
 }

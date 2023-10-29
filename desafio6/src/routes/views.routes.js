@@ -3,7 +3,8 @@ import {
     getHomeViewC,
     getChatPageC, 
     getHomeProductsC,
-    getRealTimeProductsC
+    getRealTimeProductsC,
+    getRegisterViewC
 } from '../controller/views.controller.js';
 
 
@@ -23,6 +24,7 @@ viewsRouter.get('/chat', getChatPageC);
 viewsRouter.get('/realtimeproducts',getRealTimeProductsC); 
 //endpopint GET para obtener TODOS LOS PRODUCTOS de FILE STORAGE
 viewsRouter.get('/productsFS', getHomeProductsC);
+viewsRouter.get ('/signup', getRegisterViewC)
 
  
 

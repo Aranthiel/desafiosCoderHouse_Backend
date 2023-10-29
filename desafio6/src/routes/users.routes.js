@@ -24,7 +24,11 @@ usersRouter.post ('/', (req, res) => {
 usersRouter.post('/login', findUserByEmailC); 
 
 ///http://localhost:8080/api/users/signup
-usersRouter.post('/signup',createUserC )
+//usersRouter.post('/signup', createUserC )
+usersRouter.post('/signup', createUserC, (req, res) => {
+    console.log("Llegó a la ruta POST /api/users/signup");
+    console.log("Datos del formulario:", req.body);
+});
 
 
 //endpoint para procesar el login
