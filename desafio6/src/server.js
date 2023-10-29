@@ -1,21 +1,25 @@
 /// EXPRESS
 import express from 'express';
 import apiRouter from './routes/api.routes.js';
+// coockie parser
+import cookieParser from "cookie-parser";
+
+// session
+import session from "express-session";
+import FileStore from "session-file-store";
+import mongoStore from "connect-mongo";
+
+//handlebars'
+import { engine } from "express-handlebars";
+import { __dirname } from './utils.js';
+import viewsRouter from './routes/views.routes.js';
+import path from 'path';
 
 //mongoose
 import "./db/config.js";
 
-//handlebars'
-import { engine } from "express-handlebars";
-import viewsRouter from './routes/views.routes.js';
-import { __dirname } from './utils.js';
-import path from 'path';
-
 //socket.io 
 import { initializeSocket } from "./socket/socketServer.js";
-
-//Cookie Parser
-import cookieParser from 'cookie-parser';
 
 const app = express();
 const port=8080;
@@ -25,26 +29,23 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(__dirname+'/public'));
 
+//session
+const fileStore = FileStore(session)
+app.use(cookieParser());
+app.use(session({
+    secret: 'sessionsecretkey',
+    cookie: {
+        maxAge: 30000,
+    },
+    store: new fileStore({
+        path: __dirname + '/sessions',
+    })
+}))
+
 //handlebars
 app.engine("handlebars", engine());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "handlebars");
-
-//cookies
-//const secret  ='123456'
-//app.use(cookieParser(secret));
-app.use(cookieParser());
-
-app.get('/set-cookie', (req, res)=> {
-    res.cookie('lang', 'eng').json({msg:'ok'});
-})
-
-app.get('/get-cookie', (req, res)=>{
-    console.log(req.cookies);
-    const {lang}= req.cookies;
-    lang == 'eng' ? res.send('Wellcome') : res.send('Bienvenide');
-
-})
 
 // routes
 app.use("/api", apiRouter);

@@ -1,7 +1,7 @@
 import {Router} from "express";
 import { 
     getHomeProductsC,
-    getRealTimeProductsC
+    getRealTimeProductsC,
 } from '../controller/views.controller.js'
 
 
@@ -14,6 +14,7 @@ viewsRouter.get('/', getHomeProductsC);
 
 //endpopint GET para obtener TODOS LOS PRODUCTOS
 viewsRouter.get('/realtimeproducts',getRealTimeProductsC); 
+
 
 export default viewsRouter
 
