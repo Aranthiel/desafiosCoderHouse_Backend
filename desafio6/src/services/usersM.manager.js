@@ -29,18 +29,20 @@ class UserManagerMongoose {
 
 export const userManagerMongoose= new UserManagerMongoose();
 
+const randomNumber = Math.floor(Math.random() * 1000);
+
 // Datos del usuario de prueba
 const userPrueba = {
-    first_name: 'Usuario',
-    last_name: 'Prueba',
-    email: 'usuario@prueba.com',
-    password: 'password123', 
+    first_name: 'Usuario' + randomNumber,
+    last_name: 'Prueba' + randomNumber,
+    email: 'usuario' + randomNumber + '@prueba.com',
+    password: 'password123' + randomNumber, 
 };
 
 const nuevoUsuario = await userManagerMongoose.createUser(userPrueba);
 
 if (nuevoUsuario) {
-    console.log('Usuario creado con éxito:', nuevoUsuario);
+    console.log('Usuario creado con éxito:', nuevoUsuario._id);
 } else {
     console.log('Error al crear el usuario.');
 }

@@ -1,0 +1,137 @@
+/*menu*/
+
+#menu {    
+    background-color: rgb(116, 193, 196); 
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+#logo{
+    width: 10vw;
+}
+#logo img {
+    width: 50%;
+    padding: 1.5rem;
+}
+#menuOptions{
+    width: 70vw;
+}
+#menuOptions ul {    
+    display: flex;
+    justify-content: space-evenly;
+    /*background-color: rgb(209, 161, 185);*/
+    list-style: none;
+    height: 35px;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+}
+#menuOptions.menuLi::before{
+    content: " | "
+
+} 
+.menuLi {
+    /*background-color: rgb(129, 186, 194);*/
+    height: 25px;
+    overflow: hidden;
+    margin: 2px;
+    text-align: center;
+
+}
+a {
+   text-decoration: none;
+   color:black;
+   text-transform: uppercase;
+}
+div#cart{
+    display: flex;
+    width: 5rem;
+    height: 5rem;
+}
+div#cart img{
+    width: 1.75rem;
+}
+#profile{
+    display: flex;
+    width: 5rem;
+    height: 5rem;
+}
+div#profile img{
+    width: 1.75rem;
+}
+/*carritos.handlebars*/
+#carritos{
+    background-color: #ccc;
+
+}
+/*chat.handlebars*/
+
+/*home.handlebars*/
+
+/*products.handlebars*/
+#showProducts{
+    background-color: rgb(209, 161, 185);
+    
+    
+}
+#productCards{
+    background-color: rgb(129, 186, 194);    
+    display: flex;
+    flex-wrap: wrap;    
+    justify-content: space-evenly;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+.card.col-md-4.mb-4{
+    background-color: rgb(217, 228, 156);
+    border: 1px solid rgb(96, 34, 138);
+    width: 15%;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    padding: 15px;
+    margin:1%;
+}
+
+#pagination{
+    display: flex;
+    justify-content: space-evenly;
+}
+/* #prevPage{}
+#currentPage{}
+#nextPage{} */
+
+
+/*realtimeproducts.handlebars*/
+#rtpcontainer{
+    border:1px solid red;
+    display: flex;
+}
+#rtpproductos{
+    border:4px solid rgb(40, 165, 29);
+    width: 50%;
+}
+#productForm{
+    border:1px solid red;
+}
+#rtpshowProducts{
+    border:1px solid red;
+}
+#rtpcarritos{
+    border:4px solid rgb(196, 87, 14);
+    width: 50%;
+}
+#rtpRenderCarritos{
+    border:1px solid red;
+}
+#rtpButtonsCarrito{
+    border:1px solid red;
+}
