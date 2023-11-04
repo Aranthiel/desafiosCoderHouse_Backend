@@ -1,4 +1,5 @@
 import { productsManager } from '../services/fsmanagers/productsFS.manager.js';
+import { productsManagerMongoose }from '../services/productsM.manager.js'
 
 function getEmailAndFirstNameFromSession(req) { //funciona perfecto, no tocar 29/10/2023 2:45am
     console.log('ejecutando getEmailAndFirstNameFromSession en views.controller.js');
@@ -37,7 +38,7 @@ async function getChatPageC (req, res){//funciona perfecto, no tocar 29/10/2023 
     res.render("chat");
 }; 
 
-async function getHomeProductsC (req, res)  {//funciona perfecto, no tocar 29/10/2023 2:45am
+async function getHomeProductsFSC (req, res)  {//funciona perfecto, no tocar 29/10/2023 2:45am
     console.log('ejecutando getHomeProductsC en views.controller.js');
     const limit = req.query.limit ? parseInt(req.query.limit) : undefined;    
     
@@ -57,13 +58,33 @@ async function getHomeProductsC (req, res)  {//funciona perfecto, no tocar 29/10
     }
 }; 
 
+async function getHomeProductsC (req, res)  {//funciona perfecto, no tocar 29/10/2023 2:45am
+    console.log('ejecutando getHomeProductsC en views.controller.js');
+    const limit = req.query.limit ? parseInt(req.query.limit) : undefined;    
+    
+    const { email, first_name } = getEmailAndFirstNameFromSession(req);
+
+    try {
+        const products = await productsManagerMongoose.getProducts(+limit);
+        if (!products.length){
+            res.status(404).json({ success: false, message: 'No se encontraron productos'})
+        } else {
+            res.status(200).render("productsFS", {products, email, first_name});
+        }
+        
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+        
+    }
+};
+
 async function getRealTimeProductsC (req, res)  {//funciona perfecto, no tocar 29/10/2023 2:00am
     console.log('ejecutando getRealTimeProductsC en views.controller.js');
     const limit = req.query.limit ? parseInt(req.query.limit) : undefined;    
     
 
     try {
-        const products = await productsManager.getProducts(+limit);
+        const products = await productsManagerMongoose.getProducts(+limit);
         if (!products.length){
             res.status(404).json({ success: false, message: 'No se encontraron productos'})
         } else {
@@ -83,5 +104,6 @@ export {
     getChatPageC, 
     getHomeProductsC,
     getRealTimeProductsC,
+    getHomeProductsFSC,
     getRegisterViewC
     }
