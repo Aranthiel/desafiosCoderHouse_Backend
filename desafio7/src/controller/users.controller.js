@@ -37,14 +37,14 @@ async function findUserByEmailC(req, res){
         const userByEmail = await userManagerMongoose.findUserByEmail(email);
         if (!userByEmail){
             res.status(401).json({ success: false, message: 'No se encontro el usuario con el mail solicitado'})
+        }else {
+            req.session.email = email;
+            req.session.first_name = userByEmail.first_name;
+            if (email === "adminCoder@coder.com" && password === "Cod3r123") {
+                req.session.isAdmin = true;
+            }
+            res.status(200).redirect(`/productsFS?email=${email}&first_name=${userByEmail.first_name}`);
         }
-        req.session["email"]=email;
-        req.session["first_name"]= userByEmail.first_name;
-        if (email === "adminCoder@coder.com" && password === "Cod3r123") {
-            req.session["isAdmin"] = true;
-        }
-        res.status(200).redirect("/productsFS");
-        
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
