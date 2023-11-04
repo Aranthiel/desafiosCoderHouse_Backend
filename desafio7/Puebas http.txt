@@ -1,0 +1,79 @@
+GET http://localhost:8080/api/products/ --> funciona OK
+
+GET http://localhost:8080/api/products?limit=7 --> funciona OK
+
+GET http://localhost:8080/api/products/652b1a380fc46ca9eb358044 --> funciona OK
+
+PUT http://localhost:8080/api/products/652b1a820fc46ca9eb35804a --> funciona OK si hago un get del producto aparece modificado, pero en la respuesta de thunder se queda pensando
+body:
+{
+"title": "Titulo cambiado con update",
+"category": "categoria updated"
+}
+
+PUT http://localhost:8080/api/products/652b19dd0fc46ca9eb358042 --> funciona OK si hago un get del producto aparece modificado, pero en la respuesta de thunder se queda pensando
+body:
+{
+"title": "Titulo pp1 cambiado con update",
+"category": "updated",
+"stock": 1005
+}
+
+DELETE http://localhost:8080/api/products/652b1a640fc46ca9eb358046 -->  funciona OK
+
+
+CART 
+
+  PUT http://localhost:8080/api/carts -> funciona OK
+  body:
+  {
+    "products": [
+      {
+        "id": "652b1a380fc46ca9eb358044",
+        "quantity": 3
+      },
+      {
+        "id": "652b1a8d0fc46ca9eb35804c",
+        "quantity": 2
+      }
+    ]
+  }
+
+  GET http://localhost:8080/api/carts/652b3cb33ae8f120817eb8d0 -> funciona OK
+  {
+    "message": "Carrito encontrado:",
+    "cartById": {
+      "_id": "652b3cb33ae8f120817eb8d0",
+      "products": [
+        {
+          "quantity": 3,
+          "_id": "652b1a380fc46ca9eb358044"
+        },
+        {
+          "quantity": 2,
+          "_id": "652b1a8d0fc46ca9eb35804c"
+        }
+      ],
+      "__v": 0
+    }
+  }
+
+  GET http://localhost:8080/api/carts/652b3d503ae8f120817eb8d7
+  {
+    "message": "Carrito encontrado:",
+    "cartById": {
+      "_id": "652b3d503ae8f120817eb8d7",
+      "products": [
+        {
+          "quantity": 3,
+          "_id": "652b1a380fc46ca9eb358044"
+        }
+      ],
+      "__v": 0
+    }
+  }
+
+  POST http://localhost:8080/api/carts/652b3d503ae8f120817eb8d7/product/652b1bfd0fc46ca9eb35806a  
+  post http://localhost:8080/api/carts/652b45bd71be63780c5c731c/product/652b1bfd0fc46ca9eb35806a  
+  BODY:
+  {"quantity": 14}
