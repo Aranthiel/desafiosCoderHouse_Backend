@@ -30,10 +30,10 @@ class UserManagerMongoose {
 
 export const userManagerMongoose= new UserManagerMongoose();
 
-const randomNumber = Math.floor(Math.random() * 1000);
+//const randomNumber = Math.floor(Math.random() * 1000);
 
 // Datos del usuario de prueba
-const userPrueba = {
+/* const userPrueba = {
     first_name: 'Usuario' + randomNumber,
     last_name: 'Prueba' + randomNumber,
     email: 'usuario' + randomNumber + '@prueba.com',
@@ -47,3 +47,4 @@ if (nuevoUsuario) {
 } else {
     console.log('Error al crear el usuario.');
 }
+ */

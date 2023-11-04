@@ -65,9 +65,9 @@ async function getHomeProductsC (req, res)  {//funciona perfecto, no tocar 29/10
     const { email, first_name } = getEmailAndFirstNameFromSession(req);
 
     try {
-        const products = await productsManagerMongoose.getProducts(+limit);
+        const products = await productsManagerMongoose.mongooseGetProducts(+limit);
         if (!products.length){
-            res.status(404).json({ success: false, message: 'No se encontraron productos'})
+            res.status(404).json({ success: false, message: 'No se encontraron productos', data:[]})
         } else {
             res.status(200).render("productsFS", {products, email, first_name});
         }
@@ -84,9 +84,9 @@ async function getRealTimeProductsC (req, res)  {//funciona perfecto, no tocar 2
     
 
     try {
-        const products = await productsManagerMongoose.getProducts(+limit);
+        const products = await productsManagerMongoose.mongooseGetProducts(+limit);
         if (!products.length){
-            res.status(404).json({ success: false, message: 'No se encontraron productos'})
+            res.status(404).json({ success: false, message: 'No se encontraron productos' , data:[]})
         } else {
             res.status(200).render("realTimeProducts", { products});
         }
