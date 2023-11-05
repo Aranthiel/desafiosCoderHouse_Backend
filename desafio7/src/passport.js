@@ -74,8 +74,34 @@ passport.use(
         callbackURL: "http://localhost:8080/api/users/github"
     },
     async function(accessToken, refreshToken, profile, done) {
-        console.log("profile", profile);
+        console.log("profile", profile); // ¿no se imprime?
         done(null, false);
+        /*     
+        try {
+            console.log('ejecutando passport.use GitHubStrategy desde passport.js')
+            const userByEmail = await userManagerMongoose.findUserByEmail(profile.email);
+            if (!userByEmail) {
+                console.log('GitHubStrategy passport.js: el usuario aun no està resgistrado')
+                // se hace el registro
+                const userProfile = {
+                first_name: profile.name,
+                last_name: profile.lastname, 
+                email: profile.email,
+                password: ¿hace falta un password?,
+                from_github: true,
+                };
+
+                const newUser = await userManagerMongoose.createUser(userProfile)
+                done(null, newUser);
+            } else {
+                done(null, userByEmail);
+            } 
+        } catch (error) {
+            done(error);
+        } 
+        */
+
+        //
     }
 ));
 
