@@ -2,16 +2,17 @@
 <h1>SIGNUP</h1>
 <form id="signupForm" action="/api/users/signup" method="post">
     FirstName: <input type="text" name="first_name" id="first_name">
-    LastName: <input type="text" name "last_name" id="last_name">
+    LastName: <input type="text" name="last_name" id="last_name">
     Email: <input type="email" name="email" id="email">
     Password: <input type="password" name="password" id="password">
     <input type="submit" value="SIGNUP">
 </form>
+
 <button onclick="location.href='/api/users/auth/github'">GITHUB</button>
 
 <p>Si ya estás registrado, <a href="/">logueate</a></p>
 
-
+<!--
 <script>
     // Capturar el evento de envío del formulario
     document.getElementById("signupForm").addEventListener("submit", function (event) {
@@ -50,3 +51,4 @@
         
     });
 </script>
+-->
