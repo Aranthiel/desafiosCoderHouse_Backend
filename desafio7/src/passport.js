@@ -16,17 +16,19 @@ passport.use(
         },
         async (req, email, password, done) => {
             try {
-            const allReadyExist = await userManagerMongoose.findUserByEmail(email);
-            if (allReadyExist) {
-                return done(null, false);
-            }
-            const hashedPassword = await hashData(password);
-            const newUser = await userManagerMongoose.createUser({
-                ...req.body,
-                password: hashedPassword,
-            });
-            
-            done(null, newUser);
+                console.log('ejecutando passport.use signup desde passport.js')
+                const allReadyExist = await userManagerMongoose.findUserByEmail(email);
+                if (allReadyExist) {
+                    console.log('allReadyExist en passport.js')
+                    return done(null, false);
+                }
+                const hashedPassword = await hashData(password);
+                const newUser = await userManagerMongoose.createUser({
+                    ...req.body,
+                    password: hashedPassword,
+                });
+                
+                done(null, newUser);
             } catch (error) {
             done(error);
             }

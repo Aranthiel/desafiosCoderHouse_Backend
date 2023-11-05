@@ -80,10 +80,29 @@ async function createUserC (req, res){
 
 function passportLocalAuthSignup(req, res, next) { //el usuario se crea, pero no se hace la redireccion
     console.log('ejecutando passportLocalAuthSignup desde users.controller.js') 
-    passport.authenticate("signup", {
-        successRedirect: "/",
-        failureRedirect: "/error",
-    })(req, res, next);
+    const {email, password} = req.body
+    passport.authenticate("signup")(req, res, async (err) => {
+        if (err) {
+            // Maneja errores si ocurren durante la autenticación
+            console.log(err);
+            return res.redirect("/error"); // Redirige a la página de error en caso de error
+        }
+
+        // Accede a la información del usuario autenticado
+        const userByEmail = req.user;
+        console.log('userByEmail en passportLocalAuthSignup', userByEmail);
+        
+        req.session.email = userByEmail.email;
+        req.session.first_name = userByEmail.first_name;
+        const isValid = await compareData(password, userByEmail.password);
+        if (email === "adminCoder@coder.com" && isValid) {
+            req.session.isAdmin = true;
+        }
+
+        console.log('redireccionando a home desde passportLocalAuthSignup en users.controller.js');
+        res.redirect("/"); // Redirige al usuario a la ruta deseada
+        //res.status(200).render("productsFS", {products, email, first_name});
+    });
 };
 
 async function passportLocalAuthLogin(req, res, next) {
