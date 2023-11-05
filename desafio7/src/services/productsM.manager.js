@@ -7,6 +7,7 @@ export class ProductsManagerMongoose{
         console.log('ejecutando mongooseGetProducts en productsM.manager.js')
         limit ? limit : 15;
         const productsList = await productModel.find().limit(limit);
+        console.log('productsList en mongooseGetProducts', productsList)
         return productsList;
     }
         

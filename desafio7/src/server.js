@@ -9,6 +9,10 @@ import session from "express-session";
 import FileStore from "session-file-store";
 import mongoStore from "connect-mongo";
 
+//passport
+import passport from 'passport';
+import './passport.js';
+
 //handlebars'
 import { engine } from "express-handlebars";
 import { __dirname } from './utils.js';
@@ -32,6 +36,7 @@ app.use(express.static(__dirname+'/public'));
 //session
 const fileStore = FileStore(session)
 app.use(cookieParser());
+/*
 app.use(session({
     secret: 'sessionsecretkey',
     cookie: {
@@ -43,6 +48,24 @@ app.use(session({
     resave: false, // Establece resave en false para evitar la advertencia
     saveUninitialized: true, // Establece saveUninitialized en true para evitar la advertencia
 }))
+*/
+
+// session con mongo
+app.use(session({
+    store: new mongoStore({
+        mongoUrl:'mongodb+srv://nmoronidalmasso:Naty1982@mi1cluster.dnkjwvk.mongodb.net/chbackend?retryWrites=true&w=majority',
+    }),
+    secret: 'mongosessionsecretkey',
+    cookie: {
+        maxAge: 30000,
+    },
+}))
+
+//passport
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 //handlebars
 app.engine("handlebars", engine());

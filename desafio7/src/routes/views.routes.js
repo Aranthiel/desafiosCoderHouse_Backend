@@ -4,7 +4,8 @@ import {
     getChatPageC, 
     getHomeProductsC,
     getRealTimeProductsC,
-    getRegisterViewC
+    getRegisterViewC,
+    getErrorPageC    
 } from '../controller/views.controller.js';
 
 
@@ -16,7 +17,7 @@ const viewsRouter = Router();
 viewsRouter.get("/", (req, res) => {
     res.render("login");
 });
-
+viewsRouter.get ('/signup', getRegisterViewC)
 viewsRouter.get('/home', getHomeViewC); 
 //viewsRouter.get('/users', usersRouter);
 viewsRouter.get('/chat', getChatPageC); 
@@ -24,7 +25,8 @@ viewsRouter.get('/chat', getChatPageC);
 viewsRouter.get('/realtimeproducts',getRealTimeProductsC); 
 //endpopint GET para obtener TODOS LOS PRODUCTOS de FILE STORAGE
 viewsRouter.get('/productsFS', getHomeProductsC);
-viewsRouter.get ('/signup', getRegisterViewC)
+viewsRouter.get('/error', getErrorPageC);
+
 
  
 
