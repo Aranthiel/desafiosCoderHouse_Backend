@@ -146,7 +146,7 @@ const passportGithubAuth = passport.authenticate("github", { scope: ["user:email
 
 const passportGithubCallback = (req, res) => {
     req.session.user = req.user;
-    res.redirect("/home");
+    res.redirect("/productsFS");
 };
 
 

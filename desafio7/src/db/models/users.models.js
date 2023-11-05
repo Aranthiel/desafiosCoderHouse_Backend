@@ -19,6 +19,10 @@ const userSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	from_github: {
+		type: Boolean,
+		default: false,
+	},
 });
 
 

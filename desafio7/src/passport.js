@@ -1,8 +1,9 @@
 import passport from "passport";
 import { userManagerMongoose } from "./services/usersM.manager.js";
 import { Strategy as LocalStrategy } from "passport-local";
-import { Strategy as GithubStrategy } from "passport-github2";
+import { Strategy as GitHubStrategy } from "passport-github2";
 import { hashData, compareData } from "./utils.js";
+//import {config } from 'dotenv';
 
 //https://www.npmjs.com/package/passport
 
@@ -63,6 +64,21 @@ passport.use(
         }
     )
 ); 
+
+
+//passport-github
+passport.use(
+    new GitHubStrategy({
+        clientID: 'Iv1.53d5862d78c26c44',
+        clientSecret: 'e71e6534039efd5d486c37fc4a34dd891e3ef974',
+        callbackURL: "http://localhost:8080/api/users/github"
+    },
+    async function(accessToken, refreshToken, profile, done) {
+        console.log("profile", profile);
+        done(null, false);
+    }
+));
+
 
 //serializeUser
 //metodo interno de passport

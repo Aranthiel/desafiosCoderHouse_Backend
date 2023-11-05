@@ -36,6 +36,12 @@ apiRouter.post('/users/signup', createUserC, (req, res) => {
     console.log("Datos del formulario:", req.body);
 });
 */
++
+
+// passport-github
+apiRouter.get("/users/auth/github", passportGithubAuth);
+apiRouter.get("/users/github", passportGithubCallback);
+
 
 //endpopint GET para obtener TODOS LOS USUARIOS
 apiRouter.get('/users/', getAllUsersC);
@@ -46,9 +52,7 @@ apiRouter.get('/users/:uid', getUserByIdC);
 apiRouter.post('/users/login', passportLocalAuthLogin);
 apiRouter.post('/users/signup', passportLocalAuthSignup);
 
-// passport-github
-apiRouter.get("/users/auth/github", passportGithubAuth);
-apiRouter.get("/github", passportGithubCallback);
+
 
 
 
