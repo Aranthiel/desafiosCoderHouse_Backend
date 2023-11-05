@@ -78,7 +78,7 @@ async function createUserC (req, res){
     }
 };
 
-function passportLocalAuthSignup(req, res, next) { //el usuario se crea, pero no se hace la redireccion
+async function passportLocalAuthSignup(req, res, next) { //el usuario se crea, pero no se hace la redireccion
     console.log('ejecutando passportLocalAuthSignup desde users.controller.js') 
     const {email, password} = req.body
     passport.authenticate("signup")(req, res, async (err) => {
@@ -100,8 +100,7 @@ function passportLocalAuthSignup(req, res, next) { //el usuario se crea, pero no
         }
 
         console.log('redireccionando a home desde passportLocalAuthSignup en users.controller.js');
-        res.redirect("/"); // Redirige al usuario a la ruta deseada
-        //res.status(200).render("productsFS", {products, email, first_name});
+        res.redirect("/"); 
     });
 };
 
@@ -127,8 +126,7 @@ async function passportLocalAuthLogin(req, res, next) {
         }
 
         console.log('redireccionando a productsFS desde passportLocalAuthLogin en users.controller.js');
-        res.redirect("/productsFS"); // Redirige al usuario a la ruta deseada
-        //res.status(200).render("productsFS", {products, email, first_name});
+        res.redirect("/productsFS"); 
     });
 }
 

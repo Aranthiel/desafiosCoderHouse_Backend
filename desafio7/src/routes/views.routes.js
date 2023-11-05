@@ -15,6 +15,7 @@ import {
 
 const viewsRouter = Router();
 viewsRouter.get("/", (req, res) => {
+    console.log('viewsRouter.get "/"');
     res.render("login");
 });
 viewsRouter.get ('/signup', getRegisterViewC)

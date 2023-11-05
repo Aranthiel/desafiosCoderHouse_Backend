@@ -11,11 +11,12 @@
 
 <p>Si ya estás registrado, <a href="/">logueate</a></p>
 
+
 <script>
     // Capturar el evento de envío del formulario
     document.getElementById("signupForm").addEventListener("submit", function (event) {
         event.preventDefault(); // Evitar el envío del formulario por defecto
-
+        console.log('signup.handlebars')
         // Obtener los valores de los campos del formulario
         const firstName = document.getElementById("first_name").value;
         const lastName = document.getElementById("last_name").value;
@@ -36,10 +37,11 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                console.log("Response data:", data);
+                console.log("data.newUser en signup.handlebars:", data.newUser);
                 if (data.newUser) {
                     // Redirige al usuario a la URL de la página principal
-                    window.location.href = "/";
+                    //window.location.href = "/";
                 } 
             })
             .catch(error => {
