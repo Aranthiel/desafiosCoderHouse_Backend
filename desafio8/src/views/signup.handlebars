@@ -1,0 +1,54 @@
+<!-- 16.40 219/10/2023 funciona perfecto no tocar!!! -->
+<h1>SIGNUP</h1>
+<form id="signupForm" action="/api/users/signup" method="post">
+    FirstName: <input type="text" name="first_name" id="first_name">
+    LastName: <input type="text" name="last_name" id="last_name">
+    Email: <input type="email" name="email" id="email">
+    Password: <input type="password" name="password" id="password">
+    <input type="submit" value="SIGNUP">
+</form>
+
+<button onclick="location.href='/api/users/auth/github'">GITHUB</button>
+
+<p>Si ya estás registrado, <a href="/">logueate</a></p>
+
+<!--
+<script>
+    // Capturar el evento de envío del formulario
+    document.getElementById("signupForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Evitar el envío del formulario por defecto
+        console.log('signup.handlebars')
+        // Obtener los valores de los campos del formulario
+        const firstName = document.getElementById("first_name").value;
+        const lastName = document.getElementById("last_name").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        
+        fetch("/api/users/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: email,
+                    password: password,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Response data:", data);
+                console.log("data.newUser en signup.handlebars:", data.newUser);
+                if (data.newUser) {
+                    // Redirige al usuario a la URL de la página principal
+                    //window.location.href = "/";
+                } 
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        
+    });
+</script>
+-->

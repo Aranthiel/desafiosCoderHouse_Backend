@@ -1,0 +1,16 @@
+npm init
+npm install express
+npm install express-handlebars
+npm install handlebars
+npm install socket.io
+npm install mongoose
+npm install express cookie-parser
+npm i express-session
+npm i session-file-store
+npm i connect-mongo
+npm i express bcrypt
+npm i passport + estaretegia (Google, Github, Facebook)
+npm install passport-local
+npm install passport-github2
+npm i commander
+npm i dotenv

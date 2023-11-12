@@ -1,0 +1,87 @@
+Metodos GET
+
+    VISTAS (http://localhost:8080/): 
+        
+        
+        LOGIN http://localhost:8080/ ok
+        SIGNUP  http://localhost:8080/signup "Route not found."
+        HOME http://localhost:8080/home ok
+        USERS http://localhost:8080/users "Route not found."
+        CHAT http://localhost:8080/chat ok
+        REALTIMEPRODUCTS http://localhost:8080/realtimeproducts
+        PRODUCTS_FS http://localhost:8080/productsFS
+
+
+
+    API (http://localhost:8080/api/):
+        CARTS (http://localhost:8080/api/carts/652b3cb33ae8f120817eb8d0):
+
+
+        PRODUCTS (http://localhost:8080/api/products/):
+        A PRODUCT (http://localhost:8080/api/products/652b1a820fc46ca9eb35804a)
+
+        
+
+        USERS (http://localhost:8080/api/users/): 
+        A USER (http://localhost:8080/api/users/{userID}): 
+
+
+METODOS POST
+    API (http://localhost:8080/api/):
+        CARTS 
+            http://localhost:8080/api/carts/652b3cb33ae8f120817eb8d0
+            http://localhost:8080/api/carts/652b3cb33ae8f120817eb8d0 
+
+
+        PRODUCTS (http://localhost:8080/api/products/):
+        A PRODUCT (http://localhost:8080/api/products/652b1a820fc46ca9eb35804a)
+
+        
+
+        USERS (http://localhost:8080/api/users/): 
+        A USER (http://localhost:8080/api/users/{userID}): 
+
+
+METODOS PUT 
+    API (http://localhost:8080/api/):
+        CARTS 
+            http://localhost:8080/api/carts -> funciona OK
+                {
+                "products": [
+                    {
+                    "id": "652b1a380fc46ca9eb358044",
+                    "quantity": 3
+                    },
+                    {
+                    "id": "652b1a8d0fc46ca9eb35804c",
+                    "quantity": 2
+                    }
+                ]
+                }
+
+        PRODUCTS
+            http://localhost:8080/api/products/652b1a820fc46ca9eb35804a 
+            http://localhost:8080/api/products/652b19dd0fc46ca9eb358042 
+                body:
+                {
+                "title": "Titulo pp1 cambiado con update",
+                "category": "updated",
+                "stock": 1005
+                }
+
+
+        USERS (http://localhost:8080/api/users/): 
+        A USER (http://localhost:8080/api/users/{userID}): 
+
+
+METODOS DELETE 
+    API (http://localhost:8080/api/):
+        CARTS (http://localhost:8080/api/carts/652b3cb33ae8f120817eb8d0):
+
+
+        PRODUCTS 
+            http://localhost:8080/api/products/652b1a640fc46ca9eb358046 
+
+        
+
+        USERS  
