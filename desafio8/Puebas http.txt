@@ -29,49 +29,54 @@ CART
   {
     "products": [
       {
-        "id": "652b1a380fc46ca9eb358044",
+        "productoId": "652b1a8d0fc46ca9eb35804c",
         "quantity": 3
       },
       {
-        "id": "652b1a8d0fc46ca9eb35804c",
+        "productoId": "652b1ac30fc46ca9eb358050",
         "quantity": 2
       }
     ]
   }
 
-  GET http://localhost:8080/api/carts/652b3cb33ae8f120817eb8d0 -> funciona OK
-  {
-    "message": "Carrito encontrado:",
-    "cartById": {
-      "_id": "652b3cb33ae8f120817eb8d0",
-      "products": [
-        {
-          "quantity": 3,
-          "_id": "652b1a380fc46ca9eb358044"
+  GET http://localhost:8080/api/carts/65514337a3d35e3e77aa14a6 -> funciona OK
+ {
+  "message": "Carrito encontrado:",
+  "cartById": {
+    "_id": "65514337a3d35e3e77aa14a6",
+    "products": [
+      {
+        "productoId": {
+          "_id": "652b1a8d0fc46ca9eb35804c",
+          "title": "producto prueba 7",
+          "code": "stu901",
+          "price": 220,
+          "status": true,
+          "stock": 12,
+          "category": "TBD",
+          "__v": 0
         },
-        {
-          "quantity": 2,
-          "_id": "652b1a8d0fc46ca9eb35804c"
-        }
-      ],
-      "__v": 0
-    }
+        "quantity": 3
+      },
+      {
+        "productoId": {
+          "_id": "652b1ac30fc46ca9eb358050",
+          "title": "producto prueba 8",
+          "code": "pp8_280",
+          "price": 2880,
+          "status": true,
+          "stock": 18,
+          "category": "TBD",
+          "__v": 0
+        },
+        "quantity": 2
+      }
+    ],
+    "__v": 0
   }
+}
 
-  GET http://localhost:8080/api/carts/652b3d503ae8f120817eb8d7
-  {
-    "message": "Carrito encontrado:",
-    "cartById": {
-      "_id": "652b3d503ae8f120817eb8d7",
-      "products": [
-        {
-          "quantity": 3,
-          "_id": "652b1a380fc46ca9eb358044"
-        }
-      ],
-      "__v": 0
-    }
-  }
+  
 
   POST http://localhost:8080/api/carts/652b3d503ae8f120817eb8d7/product/652b1bfd0fc46ca9eb35806a  
   post http://localhost:8080/api/carts/652b45bd71be63780c5c731c/product/652b1bfd0fc46ca9eb35806a  

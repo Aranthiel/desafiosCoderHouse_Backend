@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 // Crear esquema
 const userSchema = new Schema({
@@ -24,9 +24,9 @@ const userSchema = new Schema({
 		default: false,
 	},
 	cart:{
-		type: Schema.Types.ObjectId,
+		type: mongoose.SchemaTypes.ObjectId,
         ref: 'Carritos', // Nombre de la colección a la que haces referencia
-            
+        // en cart.model.js: export const cartModel = model('Carritos', cartSchema);   
 	}
 });
 

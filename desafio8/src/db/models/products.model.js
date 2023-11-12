@@ -1,4 +1,5 @@
-import {Schema, model} from "mongoose";
+import mongoose, {Schema, model} from "mongoose";
+import mongoosePaginate from 'mongoose-paginate-v2'
 
 //crear esquema
 const productSchema = new Schema({
@@ -23,11 +24,13 @@ const productSchema = new Schema({
         type:Number,        
     },
     category:{
+        //debe ser un index
         type:String,
         required:false,
+        index: true,
     }, 
 });
 
-
+productSchema.plugin(mongoosePaginate);
 //crear modelo
 export const productModel = model('Producto', productSchema);

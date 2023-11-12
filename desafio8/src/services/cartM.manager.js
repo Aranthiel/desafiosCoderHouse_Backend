@@ -17,12 +17,13 @@ class CartManagerMongoose{
 
     async mongooseGetCartById(cid){
         console.log('ejecutando mongooseGetCartById en cartM.manager.js');
-        const response = await cartModel.findById(cid);
+        const response = await cartModel.findById(cid).populate('products.productoId');
         return response;
     };
 
     async mongooseAddCart(obj){
         console.log('ejecutando mongooseAddCart en cartM.manager.js');
+        console.log('obj en mongooseAddCart', obj);
         const response = await cartModel.create(obj)
         return response;
     };

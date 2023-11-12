@@ -4,6 +4,7 @@ npm install express-handlebars
 npm install handlebars
 npm install socket.io
 npm install mongoose
+npm i mongoose-paginate-v2
 npm install express cookie-parser
 npm i express-session
 npm i session-file-store
