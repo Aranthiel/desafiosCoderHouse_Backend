@@ -1,6 +1,7 @@
 import { productsManager } from '../services/fsmanagers/productsFS.manager.js';
 import { productsManagerMongoose }from '../services/productsM.manager.js'
 import { userManagerMongoose } from '../services/usersM.manager.js';
+import { cartManagerMongoose } from '../services/cartM.manager.js';
 
 
 function getuserIdFromSession(req) { // ¿funciona? verificar 4/11
@@ -129,6 +130,21 @@ async function getErrorPageC(req, res) {
     res.status(200).render("error");
 }
 
+async function getCartsViewC(req, res){
+    console.log('ejecutando getCartsViewC en views.controller.js');    
+
+    try {
+        const allCarts= await cartManagerMongoose.mongooseGetAllCarts()
+        if(!allCarts.length){
+            res.status(404).json({ success: false, message: 'No se encontraron carritos'}) 
+        }  else {
+            res.status(200).render("carts", {allCarts})
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+
+};
 
 export {
     getHomeViewC,
@@ -137,5 +153,6 @@ export {
     getRealTimeProductsC,
     getHomeProductsFSC,
     getRegisterViewC, 
-    getErrorPageC
+    getErrorPageC,
+    getCartsViewC
     }

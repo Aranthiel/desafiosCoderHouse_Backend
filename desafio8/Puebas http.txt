@@ -24,7 +24,7 @@ DELETE http://localhost:8080/api/products/652b1a640fc46ca9eb358046 -->  funciona
 
 CART 
 
-  PUT http://localhost:8080/api/carts -> funciona OK
+  POST http://localhost:8080/api/carts -> funciona OK
   body:
   {
     "products": [

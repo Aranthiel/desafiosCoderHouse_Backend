@@ -5,7 +5,8 @@ import {
     getHomeProductsC,
     getRealTimeProductsC,
     getRegisterViewC,
-    getErrorPageC    
+    getErrorPageC,
+    getCartsViewC
 } from '../controller/views.controller.js';
 
 
@@ -24,6 +25,8 @@ viewsRouter.get('/home', getHomeViewC);
 viewsRouter.get('/chat', getChatPageC); 
 //endpopint GET para obtener TODOS LOS PRODUCTOS con SOCKET.IO
 viewsRouter.get('/realtimeproducts',getRealTimeProductsC); 
+//endpopint GET para visualizar los carritos y manipularlos
+viewsRouter.get('/carts',getCartsViewC); 
 //endpopint GET para obtener TODOS LOS PRODUCTOS de FILE STORAGE
 viewsRouter.get('/productsFS', getHomeProductsC);
 viewsRouter.get('/error', getErrorPageC);

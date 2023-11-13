@@ -23,6 +23,9 @@ export function initializeSocket(server) {
 
         const productosIniciales = await getAllProductsSocket();
         socket.emit('productosInicialesRT', productosIniciales);
+        
+        const carritosIniciales = await getAllCartsSocket();
+        socket.emit('carritosInicialesRT', carritosIniciales);
 
         // Handle Chat Functionality
         handleChat(socket);
@@ -30,8 +33,8 @@ export function initializeSocket(server) {
         // Handle Real-Time Products Functionality
         handleRealTimeProducts(socket);
 
-        // Handle Static Products Functionality
-        //handleStaticProducts(socket);
+        // Handle carts view Functionality
+        handleCarts(socket);
 
         // Handle Disconnect
         socket.on("disconnect", () => {
@@ -147,20 +150,68 @@ export function initializeSocket(server) {
                 console.error('Error durante la eliminación:', error);
             }
         });
-    }
+    };
 
-    // Handle Static Products Functionality
-    /* async function handleStaticProducts(socket) {
+    async function getAllCartsSocket() {
         try {
-            const productosIniciales = await getAllProductsC();
-            console.log('productosIniciales en socketserver', productosIniciales);
-            socket.emit("productosIniciales", productosIniciales);
+            const response = await fetch('http://localhost:8080/api/carts');
+            if (response.ok) {
+                const carritos = await response.json();
+                return carritos;
+            } else {
+                console.error("Error al obtener carritos: ", response.status, response.statusText);
+                return [];
+            }
         } catch (error) {
-            console.error("Error al obtener productos iniciales:", error);
+            console.error("Error al obtener carritos:", error);
+            return [];
         }
-    } */
-
-
+    }
+    
+    async function handleCarts(socket) {
+        // Escuchar el evento cartViewLoaded y emitir evento carritosInicialesRT
+        socket.on('cartViewLoaded', async () => {
+            try {
+                const carritosIniciales = await getAllCartsSocket(); // Corregir la función a llamar: getAllCartsSocket
+                socket.emit('carritosInicialesRT', carritosIniciales);
+            } catch (error) {
+                console.error('Error al obtener los carritos iniciales', error);
+            }
+        });
+    
+        // Escuchar evento crearCarrito
+        socket.on('crearCarrito', async (selectedProductIds) => {
+            console.log('Evento "crearCarrito" recibido en el servidor con los siguientes datos:', selectedProductIds);
+            const newCartData = {
+                products: selectedProductIds.map(productId => ({
+                    productoId: productId,
+                    quantity: 1
+                }))
+            };
+    
+            try {
+                const response = await fetch('http://localhost:8080/api/carts', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newCartData)
+                });
+    
+                if (response.ok) {
+                    // Emite la lista actualizada de productos a todos los clientes
+                    const carritosActualizados = await getAllCartsSocket(); // Corregir la función a llamar: getAllCartsSocket
+                    // Emitir evento cartsUpdated
+                    socketServer.emit('cartsUpdated', carritosActualizados);
+                } else {
+                    console.error("Error al agregar el carrito: ", response.status, response.statusText);
+                }
+            } catch (error) {
+                console.error('Error al crear el carrito', error);
+            }
+        });
+    }
+    
 };
 
 

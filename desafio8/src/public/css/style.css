@@ -135,3 +135,40 @@ div#profile img{
 #rtpButtonsCarrito{
     border:1px solid red;
 }
+.flexContainer{
+    display: flex;    
+    justify-content: space-around;
+}
+#cartOptions{
+    background-color: pink;
+    width: 30%;
+}
+#cartOptions h2{
+    text-align: center;
+}
+#showCarts{
+    background-color: aquamarine;
+    /*display: flex;*/
+    width: 30%;
+}
+#showCarts h2{
+    text-align: center;
+}
+#showCartDetail{
+    background-color:burlywood;
+    /*display: flex;*/
+    width: 30%;
+}
+#showCartDetail h2{
+    text-align: center;
+}
+.productCardDiv{
+    background-color: purple;
+    margin: 1rem;
+    border-radius: 2rem;
+    border: 1px solid black;
+    padding:0 1.5rem;
+}
+.productCardDiv h3{
+    text-align: center;
+}

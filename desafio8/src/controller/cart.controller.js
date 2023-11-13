@@ -1,5 +1,20 @@
 import { cartManagerMongoose } from "../services/cartM.manager.js";
 
+async function getAllCartsC(req, res){
+    console.log('ejecutando getAllCartsC en cart.controller.js')
+    try {
+        const allCarts= await cartManagerMongoose.mongooseGetAllCarts()
+        if(!allCarts.length){
+            res.status(404).json({ success: false, message: 'No se encontraron carritos'}) 
+        }  else {
+            res.status(200).json({success: true, message: 'Carritos encontrado:', allCarts})
+            return allCarts;
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 async function getCartByIdC(req, res){
     console.log('ejecutando getCartByIdC  en cart.controller.js')
     const {cid}=req.params;
@@ -71,5 +86,6 @@ async function addProductToCartC(req, res){
 export {
     getCartByIdC,
     addCartC,
-    addProductToCartC
+    addProductToCartC, 
+    getAllCartsC
     } 
