@@ -33,7 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(__dirname+'/public'));
 
-//session
+//session con filestore 
 const fileStore = FileStore(session)
 app.use(cookieParser());
 /*
@@ -75,6 +75,14 @@ app.set("view engine", "handlebars");
 // routes
 app.use("/api", apiRouter);
 app.use("/", viewsRouter);
+// app.get sirve para manejar las rutas no encontradas cuando se realiza una solicitud GET. Para manejar cualquier tipo de solicitud (GET, POST, PUT, etc.),  usar app.use
+app.get("*", async (req, res) => {
+    res.status(404).render('error', {
+        status: 'error',
+        message: 'Route not found.',
+        data: {}
+    });
+});
 
 //proporcionar una respuesta clara y consistente en caso de que un cliente solicite una ruta que no existe en la aplicación
 app.get("*", async (req, res) => {

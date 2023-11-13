@@ -69,9 +69,18 @@ passport.use(
 //passport-github
 passport.use(
     new GitHubStrategy({
-        clientID: config.github_clientID, 
+        clientID:  'Iv1.53d5862d78c26c44',
+        clientSecret:'e71e6534039efd5d486c37fc4a34dd891e3ef974',
+        callbackURL:"http://localhost:8080/api/users/github" 
+        
+        /* clientID: config.github_clientID, 
         clientSecret: config.github_clientSecret, 
-        callbackURL: config.github_callbackURL, 
+        callbackURL: config.github_callbackURL,  */
+
+        /* GITHUB_CLIENT_ID: 'Iv1.53d5862d78c26c44',
+        GITHUB_CLIENT_SECRET: 'e71e6534039efd5d486c37fc4a34dd891e3ef974',
+        GITHUB_CALLBACK_URL: "http://localhost:8080/api/users/github" */
+
     },
     async function(accessToken, refreshToken, profile, done) {
         console.log("profile", profile); // ¿no se imprime?
