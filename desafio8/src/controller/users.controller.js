@@ -1,4 +1,5 @@
 import { userManagerMongoose } from '../services/usersM.manager.js';
+import { cartManagerMongoose } from "../services/cartM.manager.js";
 import { hashData, compareData } from "../utils.js";
 import passport from "passport";
 //getUserById, findUserByEmail, createUser
@@ -68,10 +69,12 @@ async function createUserC (req, res){
         }
         else {
             const hashedPassword = await hashData(password);
+            //aca deberia crear un carrito para asociarlo al usuario?
             const newUser = await userManagerMongoose.createUser({...req.body, password: hashedPassword});
             console.log('newUser', newUser)
-            return res.status(200).json({message: "Nuevo usuario creado", newUser
-        })}
+            //acá deberia guardar la informacion del usuario en req.session?
+            return res.status(200).json({message: "Nuevo usuario creado", newUser})
+        }
     } catch (error) {
         console.error('Error al crear un nuevo usuario:', error);
         res.status(500).json({ success: false, message: error.message });
@@ -130,26 +133,16 @@ async function passportLocalAuthLogin(req, res, next) {
     });
 }
 
+
 const passportGithubAuth = passport.authenticate("github", { scope: ["user:email"] });
 
-const passportGithubCallback = (req, res) => {
-    req.session.user = req.user;
 
-    // Accede a la información del usuario autenticado
-    /*
-    const userByEmail = req.user;
-    console.log('userByEmail en passportGithubCallback', userByEmail);
-    
-    req.session.email = userByEmail.email;
-    req.session.first_name = userByEmail.first_name;
-    const isValid = await compareData(password, userByEmail.password);
-    if (email === "adminCoder@coder.com" && isValid) {
-        req.session.isAdmin = true;
-    }
-    */
+const passportGithubCallback = (req, res, next) => {
+    console.log('ejecutando passportGithubCallback en users.controller.js')
+    return res.redirect("/productsFS");
+    };
 
-    res.redirect("/productsFS");
-};
+
 
 
 export {
@@ -160,5 +153,6 @@ export {
     passportLocalAuthSignup, 
     passportLocalAuthLogin,
     passportGithubAuth, 
-    passportGithubCallback
+    passportGithubCallback,
+    
     }

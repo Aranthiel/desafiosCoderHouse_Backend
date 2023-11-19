@@ -1,6 +1,7 @@
 /// EXPRESS
 import express from 'express';
 import apiRouter from './routes/api.routes.js';
+import dotenv from 'dotenv';
 // coockie parser
 import cookieParser from "cookie-parser";
 
@@ -36,19 +37,7 @@ app.use(express.static(__dirname+'/public'));
 //session con filestore 
 const fileStore = FileStore(session)
 app.use(cookieParser());
-/*
-app.use(session({
-    secret: 'sessionsecretkey',
-    cookie: {
-        maxAge: 30000,
-    },
-    store: new fileStore({
-        path: __dirname + '/sessions',
-    }),    
-    resave: false, // Establece resave en false para evitar la advertencia
-    saveUninitialized: true, // Establece saveUninitialized en true para evitar la advertencia
-}))
-*/
+
 
 // session con mongo
 app.use(session({
@@ -82,15 +71,6 @@ app.get("*", async (req, res) => {
         message: 'Route not found.',
         data: {}
     });
-});
-
-//proporcionar una respuesta clara y consistente en caso de que un cliente solicite una ruta que no existe en la aplicación
-app.get("*", async (req, res) => {
-    return res.status(404).json({
-        status: "error",
-        message: "Route not found.",
-        data: {}
-    })
 });
 
 // Inicia el servidor

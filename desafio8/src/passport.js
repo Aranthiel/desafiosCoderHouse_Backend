@@ -3,7 +3,7 @@ import { userManagerMongoose } from "./services/usersM.manager.js";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import { hashData, compareData } from "./utils.js";
-import config from './config.js'
+import dotenv from 'dotenv';
 
 //https://www.npmjs.com/package/passport
 
@@ -67,50 +67,22 @@ passport.use(
 
 
 //passport-github
-passport.use(
+passport.use("github",
     new GitHubStrategy({
         clientID:  'Iv1.53d5862d78c26c44',
         clientSecret:'e71e6534039efd5d486c37fc4a34dd891e3ef974',
         callbackURL:"http://localhost:8080/api/users/github" 
-        
-        /* clientID: config.github_clientID, 
-        clientSecret: config.github_clientSecret, 
-        callbackURL: config.github_callbackURL,  */
-
-        /* GITHUB_CLIENT_ID: 'Iv1.53d5862d78c26c44',
-        GITHUB_CLIENT_SECRET: 'e71e6534039efd5d486c37fc4a34dd891e3ef974',
-        GITHUB_CALLBACK_URL: "http://localhost:8080/api/users/github" */
-
     },
     async function(accessToken, refreshToken, profile, done) {
-        console.log("profile", profile); // ¿no se imprime?
-        done(null, false);
-        /*     
-        try {
-            console.log('ejecutando passport.use GitHubStrategy desde passport.js')
-            const userByEmail = await userManagerMongoose.findUserByEmail(profile.email);
-            if (!userByEmail) {
-                console.log('GitHubStrategy passport.js: el usuario aun no està resgistrado')
-                // se hace el registro
-                const userProfile = {
-                first_name: profile.name,
-                last_name: profile.lastname, 
-                email: profile.email,
-                password: ¿hace falta un password?,
-                from_github: true,
-                };
+        console.log('passport.use github')
+        console.log("user name en passport-github", profile._json.login); 
+        console.log("user email en passport-github", profile._json.email); 
+        const githubInfo ={
+            name:profile._json.login,             
+            email:profile._json.email, 
+        }
 
-                const newUser = await userManagerMongoose.createUser(userProfile)
-                done(null, newUser);
-            } else {
-                done(null, userByEmail);
-            } 
-        } catch (error) {
-            done(error);
-        } 
-        */
-
-        //
+        done(null, false);// si no le pongo false, se rompe, pero cn  false entiendo que devuelve un "error"
     }
 ));
 

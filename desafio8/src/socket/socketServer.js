@@ -1,11 +1,10 @@
 import { Server } from 'socket.io'; // Para gestionar las conexiones de WebSocket
-//para intereactuar con los productos
-import { getAllProductsC,
-    getProductByIdC,
-    addProductC,
-    updateProductC,
-    deleteProductC,} from '../controller/products.controller.js';
+
 import { chatModel } from "../db/models/chat.model.js";
+import dotenv from 'dotenv';
+
+const PORT = dotenv.PORT || 8080; // Si no hay variable PORT definida, usa 8080 por defecto
+const BASE_URL = `http://localhost:${PORT}/api/`;
 
 let socketServer;
 export function initializeSocket(server) {
@@ -74,7 +73,7 @@ export function initializeSocket(server) {
     // RealTimeProducts funciona perfecto, no tocar 29/10/2023 2:00am
     async function getAllProductsSocket() {
         try {
-            const response = await fetch('http://localhost:8080/api/products/');
+            const response = await fetch(`${BASE_URL}products/`);
             if (response.ok) {
                 const productos = await response.json();
                 return productos;
@@ -90,7 +89,7 @@ export function initializeSocket(server) {
 
     async function handleRealTimeProducts(socket) {
         
-        //funcion para hacer fetch a 'http://localhost:8080/api/products/' y devolver una response de forma de reemplazar getAllProductsC por esta funcion en el resto del codigo
+        //funcion para hacer fetch a `${BASE_URL}products/` y devolver una response de forma de reemplazar getAllProductsC por esta funcion en el resto del codigo
 
         socket.on('addProduct', async (nProduct) => {
             console.log('Evento "addProduct" recibido en el servidor con los siguientes datos:', nProduct);
@@ -105,7 +104,7 @@ export function initializeSocket(server) {
             };
 
             try {
-                const response = await fetch('http://localhost:8080/api/products/', {
+                const response = await fetch(`${BASE_URL}products/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -131,7 +130,7 @@ export function initializeSocket(server) {
             try {
                 for (const productId of selectedProductIds) {
                     try {
-                        const response = await fetch(`http://localhost:8080/api/products/${productId}`, {
+                        const response = await fetch(`${BASE_URL}/products/${productId}`, {
                             method: 'DELETE'
                         });
 
@@ -154,7 +153,7 @@ export function initializeSocket(server) {
 
     async function getAllCartsSocket() {
         try {
-            const response = await fetch('http://localhost:8080/api/carts');
+            const response = await fetch(`${BASE_URL}carts`);
             if (response.ok) {
                 const carritos = await response.json();
                 return carritos;
@@ -190,7 +189,7 @@ export function initializeSocket(server) {
             };
     
             try {
-                const response = await fetch('http://localhost:8080/api/carts', {
+                const response = await fetch(`${BASE_URL}carts`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

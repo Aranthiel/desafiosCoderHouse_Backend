@@ -13,7 +13,7 @@ deleteButton.textContent = "Eliminar Productos";
 
 // Inicializar productos como un arreglo vacío
 let productos = [];
-console.log('productos', productos);
+//console.log('productos', productos);
 
 form.addEventListener("submit", (event) => {
     event.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
@@ -48,7 +48,8 @@ form.addEventListener("submit", (event) => {
 
 //renderizar los productos en el DOM
 function renderProducts(productos) {
-    console.log('productos para renderizar', productos )
+    console.log('ejecutando renderProducts en realtimeproducts')
+    //console.log('productos para renderizar', productos )
     const ul = document.createElement("ul");
     
     productos.forEach((producto) => {
@@ -75,13 +76,15 @@ function renderProducts(productos) {
 
 // Escuchar el evento para recibir los productos iniciales
 socketClient.on("productosInicialesRT", (productosIniciales) => {
-    console.log('productosIniciales en realtimeproducts.js', productosIniciales);
+    console.log(' escuchando el evento productosInicialesRT')
+    //console.log('productosIniciales en realtimeproducts.js', productosIniciales);
     productos = productosIniciales.products;
     renderProducts(productos);
 });
 
 socketClient.on("productsUpdated", (productosActualizados) => {
-    console.log('productsUpdated en realtimeproducts.js', productosActualizados);
+    console.log(' escuchando el evento productsUpdated')
+    //console.log('productsUpdated en realtimeproducts.js', productosActualizados);
     productos = productosActualizados.products;
     renderProducts(productos);
 });

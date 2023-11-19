@@ -23,11 +23,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     // Inicializar productos como un arreglo vacío
     let productos = [];
-    console.log('productos', productos);
+    //console.log('productos', productos);
 
     //renderizar los productos en el DOM
     function renderProducts(productos) {
-        console.log('productos para renderizar', productos )
+        //console.log('productos para renderizar', productos )
+        console.log('ejecutando renderProducts en cartsView.js')
         const ul = document.createElement("ul");
         
         productos.forEach((producto) => {
@@ -54,13 +55,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     // Escuchar el evento para recibir los productos iniciales
     socketClient.on("productosInicialesRT", (productosIniciales) => {
-        console.log('productosIniciales en cartsViews.js', productosIniciales);
+        console.log(' escuchando el evento productosInicialesRT en CartsView')
+        //console.log('productosIniciales en cartsViews.js', productosIniciales);
         productos = productosIniciales.products;
         renderProducts(productos);
     });
 
     socketClient.on("productsUpdated", (productosActualizados) => {
-        console.log('productsUpdated en realtimeproducts.js', productosActualizados);
+        console.log(' escuchando el evento productsUpdated en carts view')
+        //console.log('productsUpdated en realtimeproducts.js', productosActualizados);
         productos = productosActualizados.products;
         renderProducts(productos);
     });
@@ -98,11 +101,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     // Inicializar carritos como un arreglo vacío
     let carritos = [];
-    console.log('carritos', carritos);
+    //console.log('carritos', carritos);
 
     //renderizar los carritos en el DOM
     function renderCarts(carritos) {
-        console.log('carritos para renderizar', carritos )
+        console.log('ejecutando renderCarts en cartsView.js')
+        //console.log('carritos para renderizar', carritos )
         const ul = document.createElement("ul");
         
         carritos.forEach((carrito) => {
@@ -139,13 +143,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     // Escuchar el evento para recibir los carritos 
     socketClient.on("carritosInicialesRT", (carritosIniciales) => {
-        console.log('carritosIniciales en cartsViews.js', carritosIniciales);
+        console.log('escuchando el evento carritosInicialesRT en cartsviews')
+        //console.log('carritosIniciales en cartsViews.js', carritosIniciales);
         carritos = carritosIniciales.allCarts;
         renderCarts(carritos);
     });
 
     socketClient.on("cartsUpdated", (carritosActualizados) => {
-        console.log('cartsUpdated en cartsViews.js', carritosActualizados);
+        console.log('escuchando el evento cartsUpdated en cartsviews')
+        //console.log('cartsUpdated en cartsViews.js', carritosActualizados);
         carritos = carritosActualizados.allCarts;
         renderCarts(carritos);
     });
@@ -160,8 +166,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
             
             productos.forEach((producto) => {
                 
-                console.log('producto.productoId.title', producto.productoId.title)
-                console.log('producto.quantity', producto.quantity)
+                //console.log('producto.productoId.title', producto.productoId.title)
+                //console.log('producto.quantity', producto.quantity)
 
                 const productCardDiv = document.createElement("div");
                 productCardDiv.classList = `productCardDiv`;
@@ -206,7 +212,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
             const response = await fetch(`http://localhost:8080/api/carts/${cartId}`);
             if (response.ok) {
                 const productos = await response.json();
-                console.log('getCartDetail productos', productos);
+                console.log('getCartDetail en cartsView.js');
+                //console.log('getCartDetail productos', productos);
                 return productos;
             } else {
                 console.error("Error al obtener productos: ", response.status, response.statusText);

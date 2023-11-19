@@ -10,7 +10,7 @@
         fetch('/api/products') // Hacer una solicitud HTTP al servidor para obtener los productos iniciales
         .then(response => response.json())
         .then(data => {
-            console.log('Productos obtenidos del servidor:', data.products); // Agregar el console.log
+            //console.log('Productos obtenidos del servidor:', data.products); // Agregar el console.log
             // Renderizar los productos en la página
             data.products.forEach(product => {
             const li = document.createElement("li");
